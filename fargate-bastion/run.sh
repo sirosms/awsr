@@ -1,8 +1,9 @@
-#/bin/sh
+#!/bin/sh
 
 # Preparation
-SSM_SERVICE_ROLE_NAME="sbcntr-SSMServiceRole"
+SSM_SERVICE_ROLE_NAME="ecs-exc-ssm-role"
 SSM_ACTIVATION_FILE="code.json"
+#AWS_REGION="eu-west-1"
 AWS_REGION="ap-northeast-2"
 
 # Create Activation Code on Systems Manager
@@ -23,6 +24,6 @@ amazon-ssm-agent -register -code "${SSM_ACTIVATION_CODE}" -id "${SSM_ACTIVATION_
 
 # Delete Activation Code
 aws ssm delete-activation --activation-id ${SSM_ACTIVATION_ID}
-
+rm -rf /var/lib/amazon/ssm/ipc/*
 # Execute SSM Agent
 amazon-ssm-agent
